@@ -485,3 +485,63 @@ Before the v2.0 release:
 - [ ] changing language does not change diagnostic facts
 - [ ] localization behavior has automated tests
 - [ ] translation contribution documentation exists
+
+## Global Localization Goal
+
+Hardware Sentinel is intended to be usable internationally.
+
+The localization system must not impose a fixed limit on supported languages.
+New translations should be addable without modifications to Sentinel Core.
+
+### v2.0 Maintained Languages
+
+The initial target is:
+
+- English
+- German
+- Azerbaijani
+- Turkish
+
+Additional translations may be provided and maintained by the community.
+
+### Localization Architecture Requirements
+
+- Unicode throughout the application
+- gettext-based translatable resources
+- automatic Linux locale detection
+- manual language selection
+- English fallback for missing translations
+- locale-aware dates, times, numbers, and units
+- pluralization support
+- layouts capable of handling different text lengths
+- architecture capable of future right-to-left language support
+- localized notifications and reports
+- translation tests
+- documented translation contribution workflow
+
+### Translation Quality
+
+Machine- or AI-generated translations may be used as drafts, but a translation
+must not be represented as verified solely because it was machine-generated.
+
+Translation status should be distinguishable where appropriate:
+
+- maintained/verified
+- community-maintained
+- incomplete/experimental
+
+### AI Language Support
+
+GUI localization and local-LLM language capability are separate features.
+
+Hardware Sentinel may provide a translated interface even when the configured
+local model has limited capability in that language.
+
+AI language support must therefore be tested separately from GUI localization.
+
+### Long-Term Goal
+
+A contributor should be able to add a new Hardware Sentinel language by
+contributing localization resources and tests without needing to understand or
+modify telemetry, diagnostics, incident handling, AI safety boundaries, or
+remediation logic.
