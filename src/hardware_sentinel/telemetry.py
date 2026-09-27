@@ -11,6 +11,7 @@ from typing import Any
 import psutil
 
 from hardware_sentinel.gpu import collect_gpu
+from hardware_sentinel.io_metrics import collect_io
 from hardware_sentinel.workloads import collect_process_summary
 
 
@@ -108,5 +109,6 @@ def collect_snapshot() -> dict[str, Any]:
         "temperatures": _temperatures(),
         "battery": _battery(),
         "gpu": collect_gpu(),
+        "io": collect_io(),
         "workloads": collect_process_summary(),
     }
