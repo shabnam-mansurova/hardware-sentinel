@@ -118,3 +118,26 @@ authority for system actions.
 - [ ] Phase 5 — Controlled Remediation
 - [ ] Phase 6 — Reporting and UX
 - [ ] Phase 7 — Testing and Portfolio Release
+
+---
+
+## Release Targets
+
+### v1.0 — Sentinel Core
+
+Target: **20 December 2026**
+
+Complete, reproducible, open-source Linux diagnostic agent with CLI.
+
+### v2.0 — Sentinel Desktop
+
+Target: **30 April 2027**
+
+Complete Linux desktop application with GTK interface and downloadable
+installation package.
+
+### Post-v2.0
+
+Evaluate Flatpak and Flathub/software-store distribution.
+
+See `docs/ROADMAP.md` for the complete roadmap.
