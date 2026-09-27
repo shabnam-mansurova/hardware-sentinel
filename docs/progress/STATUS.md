@@ -141,3 +141,26 @@ installation package.
 Evaluate Flatpak and Flathub/software-store distribution.
 
 See `docs/ROADMAP.md` for the complete roadmap.
+
+## v2.0 Multilingual Requirement
+
+Hardware Sentinel Desktop v2.0 will be internationalization-ready.
+
+Required languages for v2.0:
+
+- English
+- German
+
+Requirements:
+
+- automatic Linux locale detection
+- manual language selection
+- localized GUI
+- localized notifications
+- localized reports
+- language-aware local AI responses
+- language-neutral Sentinel Core
+- contributor-friendly translation infrastructure
+
+Additional languages may be added through community contributions after the
+translation infrastructure is established.

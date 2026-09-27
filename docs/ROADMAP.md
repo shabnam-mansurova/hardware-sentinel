@@ -365,3 +365,123 @@ Evaluate Flatpak and Flathub/software-store distribution after the desktop
 security and permissions model is stable.
 
 Software-store publication is not a requirement for v2.0.
+
+---
+
+# Internationalization and Localization
+
+**Target: Hardware Sentinel v2.0**
+
+Hardware Sentinel Desktop must be designed as a multilingual application.
+
+The Sentinel Core remains language-neutral. Localization belongs to the
+presentation layer and must not change telemetry, diagnostic rules, incident
+identifiers, evidence structures, safety policies, or remediation logic.
+
+## v2.0 Language Support
+
+Hardware Sentinel v2.0 will provide complete support for:
+
+- English
+- German
+
+The application should:
+
+- automatically detect the Linux system locale;
+- allow the user to manually select a language;
+- externalize user-facing GUI strings;
+- localize notifications and error messages;
+- localize incident and diagnostic reports;
+- request local AI explanations in the selected language;
+- preserve deterministic measurements and identifiers independently of
+  presentation language.
+
+Conceptually:
+
+    Sentinel Core
+         |
+         | structured language-neutral data
+         v
+    Localization Layer
+         |
+       +-+---------+
+       |           |
+       v           v
+    English      Deutsch
+       |           |
+       v           v
+    GUI          GUI
+    Reports      Reports
+    AI Output    AI Output
+
+Internal identifiers remain stable regardless of language.
+
+For example:
+
+    memory_pressure
+
+may be presented to the user as:
+
+    English: Memory pressure
+    German:  Speicherdruck
+
+but the underlying incident type remains `memory_pressure`.
+
+## Local AI Language
+
+The language used by the local LLM is a presentation preference, not a source
+of diagnostic truth.
+
+For example, the same structured incident:
+
+    incident_type: memory_pressure
+    memory_percent: 93.1
+
+may produce an English or German explanation while preserving exactly the same
+underlying measurements and evidence.
+
+## Community Translations
+
+The localization architecture should allow additional languages to be added
+without modifying Sentinel Core.
+
+Potential future community-maintained translations include:
+
+- French
+- Spanish
+- Italian
+- Polish
+- Turkish
+- Azerbaijani
+- other languages requested or contributed by users
+
+Translation contributions should be possible through the normal open-source
+workflow:
+
+    fork
+      |
+    add/update translation
+      |
+    test
+      |
+    pull request
+      |
+    maintainer review
+
+A future translation contribution guide should document this process.
+
+## v2.0 Localization Completion Criteria
+
+Before the v2.0 release:
+
+- [ ] GUI strings are internationalized
+- [ ] English localization is complete
+- [ ] German localization is complete
+- [ ] automatic locale detection works
+- [ ] manual language selection works
+- [ ] notifications are localized
+- [ ] reports are localized
+- [ ] AI response language follows the selected language
+- [ ] changing language does not change diagnostic facts
+- [ ] localization behavior has automated tests
+- [ ] translation contribution documentation exists
