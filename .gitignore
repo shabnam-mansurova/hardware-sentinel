@@ -27,3 +27,6 @@ data/*.sqlite3
 
 # Logs
 *.log
+
+# Hardware Sentinel telemetry datasets
+data/*.jsonl
