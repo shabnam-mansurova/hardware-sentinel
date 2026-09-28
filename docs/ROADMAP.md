@@ -25,7 +25,7 @@ agent with a command-line interface.
 
 **Target: early October 2026**
 
-Status at 2026-09-27: approximately 75% complete.
+Status at 2026-09-28: complete.
 
 Goals:
 

@@ -1,18 +1,20 @@
 # Hardware Sentinel — Project Status
 
-Last updated: 2026-09-27
+Last updated: 2026-09-28
 
 ## Current Phase
 
 **Phase 1 — Observability Foundation**
 
-Estimated completion: **70–75%**
+Status: **Complete**
 
-## Current Objective
+Completion: **100%**
+
+## Phase 1 Objective
 
 Build a reliable, privacy-conscious foundation for observing Linux hardware and
-software state and producing deterministic evidence for later diagnostic
-investigation.
+software state and producing deterministic, structured evidence for later
+diagnostic investigation.
 
 ## Completed
 
@@ -21,103 +23,117 @@ investigation.
 - [x] Memory telemetry
 - [x] Swap telemetry
 - [x] Disk-capacity telemetry
+- [x] Disk I/O counters
+- [x] Network I/O counters
+- [x] Disk/network rate calculation
+- [x] Human-readable I/O rates
 - [x] Temperature monitoring
 - [x] Battery monitoring
 - [x] Process aggregation
 - [x] Workload categorization
 - [x] Intel GPU detection
 - [x] Graceful GPU permission handling
-- [x] Disk I/O counters
-- [x] Network I/O counters
-- [x] Disk/network rate calculation
-- [x] Human-readable I/O rates
-- [x] Continuous JSONL telemetry
-- [x] Deterministic basic warnings
+- [x] Continuous local JSONL telemetry
+- [x] Deterministic resource and thermal warnings
 - [x] systemd system-state monitoring
 - [x] Failed system-unit monitoring
 - [x] Failed user-unit monitoring
+- [x] Bounded systemd journal evidence collection
+- [x] Machine metadata
+- [x] Session identity and timestamps
+- [x] Structured Incident model
+- [x] Structured Evidence model
+- [x] Deterministic anomaly-to-incident conversion
+- [x] Incident-triggered bounded evidence collection
+- [x] Explicit trusted/untrusted evidence classification
+- [x] Instruction-like journal text preserved as untrusted data
+- [x] Graceful journal and system-service failure handling
+- [x] Integration and edge-case tests
+- [x] End-to-end deterministic analysis CLI
+- [x] Live Fedora validation
+- [x] Phase 1 documentation
+- [x] Phase 1 completion review
 
-## In Progress
+## Phase 1 Validation
 
-- [ ] Bounded journal evidence collection
-  - collector implemented
-  - live Fedora test successful
-  - automated tests pending
-  - commit pending
+Automated test suite:
 
-## Remaining Phase 1 Work
+    PYTHONPATH=src python -m unittest discover -v
 
-- [ ] Complete journal collector tests
-- [ ] Define Incident data model
-- [ ] Define Evidence data model
-- [ ] Add machine/session metadata
-- [ ] Connect anomalies to incident creation
-- [ ] Trigger bounded evidence collection for incidents
-- [ ] Add integration and edge-case tests
-- [ ] Update Phase 1 documentation
-- [ ] Perform Phase 1 completion review
+Result at completion:
 
-## Next Session
+    Ran 45 tests
+    OK
 
-### Priority 1
+Live Fedora validation:
 
-Finish journal evidence collection.
+    PYTHONPATH=src python -m hardware_sentinel analyze
 
-Target:
+Validated end-to-end flow:
 
-- malicious-looking log text remains classified as untrusted data
-- invalid JSON handled safely
-- empty successful query distinguished from failure
-- collection failure handled gracefully
-- maximum line limit enforced
-- complete suite reaches approximately 17 tests
-- journal feature committed and pushed
+    telemetry snapshot
+          ↓
+    deterministic analysis
+          ↓
+    structured incident creation
+          ↓
+    bounded evidence collection
+          ↓
+    structured Incident / Evidence output
 
-### Priority 2
+A normal live Fedora run produced a valid session, machine metadata,
+deterministic metrics, and an empty incident list because no configured
+threshold was crossed.
 
-Design the structured Incident and Evidence model.
+## Security Boundary
 
-Target conceptual flow:
-
-    deterministic anomaly
-            ↓
-         incident
-            ↓
-    evidence collection
-            ↓
-    structured evidence
-            ↓
-    later diagnostic reasoning
-
-## Current Security Boundary
-
-Hardware Sentinel distinguishes:
+Hardware Sentinel distinguishes four layers.
 
 **Facts**
-Deterministic measurements and system state.
+
+Deterministic measurements and system state collected by software.
 
 **Evidence**
-Externally generated diagnostic material such as journal messages. Evidence may
-be untrusted.
+
+Diagnostic material associated with an incident. External material such as
+systemd journal messages is explicitly classified as untrusted.
 
 **Reasoning**
-Future diagnostic hypotheses and explanations.
+
+Future diagnostic hypotheses and explanations. Reasoning must remain
+distinguishable from facts and evidence.
 
 **Actions**
-Future remediation operations controlled by an explicit safety policy.
 
-The local LLM must not be treated as a source of telemetry facts or direct
+Future remediation operations controlled by an explicit safety and
+authorization policy.
+
+Instruction-like text found in journal entries remains untrusted data. It does
+not become an instruction to Hardware Sentinel, a future LLM investigator, or
+the remediation layer.
+
+The local LLM must not be treated as a source of telemetry facts or as direct
 authority for system actions.
 
 ## Phase Roadmap
 
-- [ ] Phase 1 — Observability Foundation — 70–75%
+- [x] Phase 1 — Observability Foundation — 100%
 - [ ] Phase 2 — History and Baselines
 - [ ] Phase 3 — Diagnostic Engine
 - [ ] Phase 4 — Local AI Investigator
 - [ ] Phase 5 — Controlled Remediation
 - [ ] Phase 6 — Reporting and UX
 - [ ] Phase 7 — Testing and Portfolio Release
+
+## Next Phase
+
+**Phase 2 — History and Machine Baselines**
+
+Planned work includes persistent local telemetry history, efficient history
+queries, machine-specific and workload-aware baselines, trend analysis,
+sustained-condition detection, deviation detection, and baseline tests.
+
+Phase 2 should begin in a separate development session.
 
 ---
 
@@ -141,26 +157,3 @@ installation package.
 Evaluate Flatpak and Flathub/software-store distribution.
 
 See `docs/ROADMAP.md` for the complete roadmap.
-
-## v2.0 Multilingual Requirement
-
-Hardware Sentinel Desktop v2.0 will be internationalization-ready.
-
-Required languages for v2.0:
-
-- English
-- German
-
-Requirements:
-
-- automatic Linux locale detection
-- manual language selection
-- localized GUI
-- localized notifications
-- localized reports
-- language-aware local AI responses
-- language-neutral Sentinel Core
-- contributor-friendly translation infrastructure
-
-Additional languages may be added through community contributions after the
-translation infrastructure is established.

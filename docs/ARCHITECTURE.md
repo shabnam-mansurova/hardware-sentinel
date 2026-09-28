@@ -233,3 +233,66 @@ in a supported language.
 
 Localization must not introduce a mandatory cloud dependency. Translation
 resources and supported AI inference are intended to operate locally.
+
+---
+
+## Phase 1 Observability Data Model
+
+Phase 1 establishes the deterministic boundary used by later diagnostic and AI
+components.
+
+The implemented flow is:
+
+    Telemetry Snapshot
+          |
+          v
+    Deterministic Analyzer
+          |
+          v
+    Structured Incident
+          |
+          v
+    Bounded Evidence Collection
+          |
+          v
+    Structured Evidence
+
+A telemetry snapshot contains measured machine state. The analyzer converts
+configured threshold violations into deterministic warning identifiers.
+
+Known warning identifiers may be promoted to language-neutral incident types.
+Unknown identifiers are not automatically promoted.
+
+An Incident contains deterministic facts associated with one abnormal
+condition. It does not contain AI-generated hypotheses.
+
+Evidence is diagnostic material attached to an incident. Evidence has an
+explicit trust classification. systemd journal material is externally generated
+and therefore remains untrusted.
+
+Journal collection is event-driven for incident evidence. Journal contents are
+not continuously copied into normal telemetry sessions.
+
+Instruction-like text inside journal messages remains data. Neither wording nor
+language changes its trust classification.
+
+The Phase 1 security boundary is therefore:
+
+    deterministic facts
+          |
+          v
+    explicitly classified evidence
+          |
+          v
+    future reasoning
+          |
+          v
+    future controlled actions
+
+Later reasoning components may consume facts and evidence but must not rewrite
+measured facts, silently upgrade evidence trust, determine remediation
+authorization, or treat external evidence as instructions.
+
+Each diagnostic run also has a unique session identifier and UTC start time.
+Incidents reference the session identifier and the telemetry snapshot detection
+time.

@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 
-from hardware_sentinel.analyzer import analyze_snapshot
+from hardware_sentinel.diagnose import diagnose_current_state
 from hardware_sentinel.monitor import monitor
 from hardware_sentinel.telemetry import collect_snapshot
 
@@ -25,7 +25,7 @@ def main() -> None:
 
     subparsers.add_parser(
         "analyze",
-        help="Analyze the current hardware state.",
+        help="Analyze the current hardware state and build incident evidence.",
     )
 
     monitor_parser = subparsers.add_parser(
@@ -56,9 +56,8 @@ def main() -> None:
         )
 
     elif args.command == "analyze":
-        snapshot = collect_snapshot()
-        analysis = analyze_snapshot(snapshot)
-        print(json.dumps(analysis, indent=2))
+        result = diagnose_current_state()
+        print(json.dumps(result, indent=2))
 
     else:
         snapshot = collect_snapshot()

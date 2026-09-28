@@ -31,24 +31,32 @@ See `docs/ARCHITECTURE.md` for the detailed architecture and development phases.
 - CPU utilization and per-core measurements
 - Memory and swap monitoring
 - Disk capacity monitoring
+- Disk I/O and network I/O telemetry
+- Disk/network transfer-rate calculation
 - Hardware temperature sensors
 - Battery information
 - Process aggregation
 - Workload categorization
-- Optional Intel GPU telemetry
-- Graceful GPU permission handling
+- Optional Intel GPU telemetry with graceful permission handling
+- systemd system-state and failed-unit monitoring
+- Privacy-conscious bounded systemd journal evidence
+- Machine and session metadata
 - Continuous local JSONL telemetry recording
 - Deterministic resource and thermal warnings
-- Automated unit tests
+- Structured Incident and Evidence models
+- Deterministic anomaly-to-incident conversion
+- Incident-triggered bounded evidence collection
+- Explicit untrusted-evidence handling
+- End-to-end deterministic analysis
+- Automated unit and integration tests
 
 ## Planned Capabilities
 
-- Disk I/O and network telemetry
-- systemd and service-health monitoring
-- Privacy-conscious system-log evidence
-- Historical machine baselines
-- Anomaly detection
-- Structured incident records
+- Persistent local telemetry history
+- Machine-specific and workload-aware baselines
+- Trend and sustained-condition analysis
+- Historical anomaly detection
+- Rich diagnostic correlation
 - Evidence-grounded local LLM investigation
 - Interactive troubleshooting
 - Controlled remediation
@@ -93,4 +101,4 @@ Only system metadata necessary for monitoring and diagnostics should be collecte
 
 Active development.
 
-The current focus is **Phase 1: Observability Foundation**.
+Phase 1 — **Observability Foundation** is complete. The next development phase is **Phase 2: History and Machine Baselines**.
